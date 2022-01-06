@@ -27,14 +27,14 @@ class MyApp extends StatelessWidget {
         // red -> 0xd60606
         child: MaterialApp(
           theme: ThemeData(
-            //primaryColor: Color(0xdee2e0),-> grey
-            primarySwatch: generateMaterialColor(
-              Color(0xd60606).withAlpha(0xFF),
-            ),
-            accentColor: Color(0xc1c0bf).withAlpha(0xFF),
-            //0xcecdcc-> fine
-            //MaterialColor(0xdee2e0, {1:Colors.red}),
-          ),
+              //primaryColor: Color(0xdee2e0),-> grey
+              // primarySwatch: generateMaterialColor(
+              //   Color(0xd60606).withAlpha(0xFF),
+              // ),
+              // accentColor: Color(0xc1c0bf).withAlpha(0xFF),
+              //0xcecdcc-> fine
+              //MaterialColor(0xdee2e0, {1:Colors.red}),
+              ),
           home: FavouriteApp(),
           routes: {
             //MatchStats.route: (ctx) => MatchStats(),
