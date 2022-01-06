@@ -31,6 +31,10 @@ class FootballMatchCardState extends State<FootballMatchCard> {
     print(ret);
     return SvgPicture.asset(
       ret,
+      placeholderBuilder: (ctx) => SvgPicture.asset(
+        "assets/images/prem.svg",
+        fit: BoxFit.cover,
+      ),
       fit: BoxFit.cover,
     );
   }
@@ -84,7 +88,9 @@ class FootballMatchCardState extends State<FootballMatchCard> {
               Container(
                 height: 60,
                 width: (mediaQuery.size.width - 20) / 3,
+                //padding: EdgeInsets.only(left: 2),
                 child: //Text("jel"),
+
                     Row(
                   children: [
                     tryCatch(
