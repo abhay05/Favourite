@@ -92,6 +92,7 @@ class FootballMatchCardState extends State<FootballMatchCard> {
                 child: //Text("jel"),
 
                     Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     tryCatch(
                       "assets/images/${widget.team.team1.toString().toLowerCase()}.svg",
@@ -119,24 +120,33 @@ class FootballMatchCardState extends State<FootballMatchCard> {
               // ),
               Positioned(
                 top: 65,
-                left: 25,
+                //  left: 25,
                 child: Opacity(
                   opacity: .8,
                   child: Container(
                     //padding: EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                      backgroundBlendMode: BlendMode.color,
-                      color: Colors.grey,
-                    ),
-                    child: Text.rich(
-                      TextSpan(
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'OpenSans',
+                    // decoration: BoxDecoration(
+                    //   backgroundBlendMode: BlendMode.color,
+                    //    color: Colors.grey,
+                    // ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "${widget.team.team1} - ${widget.team.team2}",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'OpenSans',
+                          ),
                         ),
-                        text:
-                            "        ${widget.team.team1} - ${widget.team.team2} \n ${DateFormat.yMMMEd().format(DateTime.fromMillisecondsSinceEpoch(widget.team.schedule))}",
-                      ),
+                        Text(
+                          "${DateFormat.yMMMEd().format(DateTime.fromMillisecondsSinceEpoch(widget.team.schedule))}",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontFamily: 'OpenSans',
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
