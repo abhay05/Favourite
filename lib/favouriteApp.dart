@@ -1,9 +1,12 @@
 import 'package:favourite/providers/FootballMatchProvider.dart';
+import 'package:favourite/widgets/CardsList.dart';
 import 'package:favourite/widgets/FootballMatchCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
 import './globals.dart';
+import './Theme.dart';
+import './providers/CricketMatchesProvider.dart';
 
 class FavouriteApp extends StatefulWidget {
   @override
@@ -13,11 +16,16 @@ class FavouriteApp extends StatefulWidget {
 class _FavouriteAppState extends State<FavouriteApp> {
   ScrollController _scrollController;
   Future<List> matchesList;
+  Future<List> cricketMatchesList;
 
   void initState() {
     var matchesProvider =
         Provider.of<FootballMatchProvider>(context, listen: false);
+    // we can use context in initState , because listen is false
     matchesList = matchesProvider.fetchMatches();
+    var cricketMatchesProvider =
+        Provider.of<CricketMatchesProvider>(context, listen: false);
+    var cricketMatchesList = cricketMatchesProvider.fetchMatches();
     super.initState();
   }
 
@@ -34,12 +42,13 @@ class _FavouriteAppState extends State<FavouriteApp> {
   @override
   Widget build(BuildContext context) {
     var mediaQuery = MediaQuery.of(context);
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-      postFrameCallback();
-    });
+    // SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+    //   postFrameCallback();
+    // });
     var matchesProvider = Provider.of<FootballMatchProvider>(context);
+    var cricketMatchesProvider = Provider.of<CricketMatchesProvider>(context);
     var teams = matchesProvider.getTeamsCards();
-
+    var cricketMatches = cricketMatchesProvider.getTeamsCards;
     return Scaffold(
       appBar: AppBar(
         //title: Text("Favourite"),
@@ -51,7 +60,7 @@ class _FavouriteAppState extends State<FavouriteApp> {
               icon: Icon(
                 Icons.star,
                 size: 30,
-                color: Colors.yellow,
+                color: MapTheme.miscellaneousIcons["favouriteIconTheme"],
               )),
           // FlatButton(
           //   onPressed: () {},
@@ -59,7 +68,7 @@ class _FavouriteAppState extends State<FavouriteApp> {
           // ),
         ],
       ),
-      backgroundColor: Colors.white, //Theme.of(context).white,
+      // backgroundColor: Colors.white, //Theme.of(context).white,
       body: SingleChildScrollView(
           child: Column(children: [
         Column(
@@ -81,60 +90,37 @@ class _FavouriteAppState extends State<FavouriteApp> {
                 ),
               ),
             ),
-            FutureBuilder(
-                future: matchesList,
-                builder: (ctx, httpSnapshot) {
-                  var widget;
-                  if (httpSnapshot.connectionState == ConnectionState.waiting) {
-                    widget = CircularProgressIndicator();
-                  } else if (httpSnapshot.connectionState ==
-                      ConnectionState.done) {
-                    if (httpSnapshot.error != null) {
-                      widget = Text(httpSnapshot.error.toString());
-                    } else {
-                      var teams;
 
-                      widget = Consumer<FootballMatchProvider>(
-                          builder: (ctx, provider, child) {
-                        teams = provider.getTeamsCards();
-                        int nowTime = DateTime.now().millisecondsSinceEpoch;
-                        int scrollOffset = 0;
-                        for (var i = 0; i < teams.length; i++) {
-                          if (teams[i].getTeam.schedule > nowTime) {
-                            scrollOffset = i;
-                            break;
-                          }
-                        }
-                        print("now " +
-                            nowTime.toString() +
-                            " " +
-                            teams[scrollOffset].getTeam.schedule.toString() +
-                            " " +
-                            scrollOffset.toString());
-                        print(DateTime.fromMillisecondsSinceEpoch(
-                            teams[scrollOffset].getTeam.schedule));
-                        var widWidth = (mediaQuery.size.width - 20) / 3;
-                        print(widWidth);
-                        var nwidgets = scrollOffset + 1;
-                        var qwidgets = nwidgets ~/ 3;
-                        var rwidgets = nwidgets % 3;
-                        _scrollController = ScrollController(
-                            initialScrollOffset:
-                                qwidgets * mediaQuery.size.width +
-                                    rwidgets * (widWidth + 10));
-                        widget = SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          controller: _scrollController,
-                          child: Row(
-                            children: teams,
-                          ),
-                        );
-                        return widget;
-                      });
-                    }
-                  }
-                  return widget;
-                }),
+            CardsList(matchesList, _scrollController, "football"),
+            SizedBox(
+              height: 30,
+            ),
+            CardsList(cricketMatchesList, _scrollController, "cricket"),
+            // FutureBuilder(
+            //   future: cricketMatchesList,
+            //   builder: (context, snapshot) {
+            //     Widget widget;
+            //     if (snapshot.connectionState == ConnectionState.done) {
+            //       print("Snapshot " + snapshot.connectionState.toString());
+            //       if (snapshot.error != null) {
+            //         widget = Text(snapshot.error.toString());
+            //       } else {
+            //         widget = SingleChildScrollView(
+            //           scrollDirection: Axis.horizontal,
+            //           child: Row(
+            //             children: cricketMatchesProvider.getTeamsCards,
+            //           ),
+            //         );
+            //       }
+            //     } else // if
+            //     // (snapshot.connectionState ==
+            //     //     ConnectionState.waiting)
+            //     {
+            //       widget = CircularProgressIndicator();
+            //     }
+            //     return widget;
+            //   },
+            // ),
           ],
         ),
       ])),

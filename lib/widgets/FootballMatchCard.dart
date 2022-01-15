@@ -18,25 +18,40 @@ class FootballMatchCard extends StatefulWidget {
 }
 
 class FootballMatchCardState extends State<FootballMatchCard> {
-  GlobalKey<FootballMatchCardState> globalKey = Globals.get();
+  // GlobalKey<FootballMatchCardState> globalKey = Globals.get();
 
   Widget tryCatch(String imageUri) {
+    print("inside try catch");
+    print(widget.team.game);
+    print(widget.team.team1);
     var ret = imageUri;
-    try {
-      SvgPicture.asset(imageUri);
-    } catch (e) {
-      print("excp");
-      ret = "assets/images/prem.svg";
-    }
-    print(ret);
-    return SvgPicture.asset(
-      ret,
-      placeholderBuilder: (ctx) => SvgPicture.asset(
-        "assets/images/prem.svg",
+    if (widget.team.game == "cricket") {
+      print("CRICKET");
+      return ClipRRect(
+        child: Image(
+          image: AssetImage(imageUri + ".png"),
+          fit: BoxFit.contain,
+          height: 45,
+          width: 45,
+        ),
+      );
+    } else {
+      try {
+        SvgPicture.asset(imageUri + ".svg");
+      } catch (e) {
+        print("excp");
+        ret = "assets/images/prem.svg";
+      }
+      print(ret);
+      return SvgPicture.asset(
+        ret + ".svg",
+        placeholderBuilder: (ctx) => SvgPicture.asset(
+          "assets/images/prem.svg",
+          fit: BoxFit.cover,
+        ),
         fit: BoxFit.cover,
-      ),
-      fit: BoxFit.cover,
-    );
+      );
+    }
   }
 
   @override
@@ -71,9 +86,9 @@ class FootballMatchCardState extends State<FootballMatchCard> {
                 5,
               ),
             ),
-            border: Border.all(
-              color: Colors.grey,
-            ),
+            // border: Border.all(
+            //      color: Colors.grey,
+            //     ),
             // boxShadow: [
             //   BoxShadow(
             //     blurRadius: 5,
@@ -95,11 +110,11 @@ class FootballMatchCardState extends State<FootballMatchCard> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     tryCatch(
-                      "assets/images/${widget.team.team1.toString().toLowerCase()}.svg",
+                      "assets/images/${widget.team.team1.toString().toLowerCase()}",
                     ),
                     Text(" VS "),
                     tryCatch(
-                      "assets/images/${widget.team.team2.toString().toLowerCase()}.svg",
+                      "assets/images/${widget.team.team2.toString().toLowerCase()}",
                     ),
                   ],
                 ),
@@ -120,10 +135,11 @@ class FootballMatchCardState extends State<FootballMatchCard> {
               // ),
               Positioned(
                 top: 65,
-                //  left: 25,
+                // left: 10,
                 child: Opacity(
                   opacity: .8,
                   child: Container(
+                    width: (mediaQuery.size.width - 20) / 3,
                     //padding: EdgeInsets.all(20),
                     // decoration: BoxDecoration(
                     //   backgroundBlendMode: BlendMode.color,
@@ -135,14 +151,17 @@ class FootballMatchCardState extends State<FootballMatchCard> {
                         Text(
                           "${widget.team.team1} - ${widget.team.team2}",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 12,
                             fontFamily: 'OpenSans',
                           ),
+                        ),
+                        SizedBox(
+                          height: 5,
                         ),
                         Text(
                           "${DateFormat.yMMMEd().format(DateTime.fromMillisecondsSinceEpoch(widget.team.schedule))}",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 12,
                             fontFamily: 'OpenSans',
                           ),
                         ),
