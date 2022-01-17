@@ -1,3 +1,4 @@
+import 'package:favourite/providers/BasketballMatchProvider.dart';
 import 'package:favourite/providers/CricketMatchesProvider.dart';
 import 'package:favourite/providers/FootballMatchProvider.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (BuildContext ctx) {
             return CricketMatchesProvider();
           }),
+          ChangeNotifierProvider(
+            create: (BuildContext ctx) => BasketballMatchProvider(),
+          ),
         ],
         // red -> 0xd60606
         child: MaterialApp(

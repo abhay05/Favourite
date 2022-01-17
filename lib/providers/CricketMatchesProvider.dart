@@ -5,8 +5,8 @@ import 'package:http/http.dart';
 
 import '../widgets/CricketMatchCard.dart';
 import '../models/CricketMatchStats.dart';
-import '../models/FootballMatch.dart';
-import '../widgets/FootballMatchCard.dart';
+import '../models/Match.dart';
+import '../widgets/MatchCard.dart';
 
 class CricketMatchesProvider with ChangeNotifier {
   var matchesList = [
@@ -72,11 +72,11 @@ class CricketMatchesProvider with ChangeNotifier {
     // return Future<List>.value(matchesList);
   }
 
-  List<FootballMatchCard> get getTeamsCards {
-    List<FootballMatchCard> matchesCards;
+  List<MatchCard> get getTeamsCards {
+    List<MatchCard> matchesCards;
     matchesCards = matchesList
-        .map((e) => FootballMatchCard(
-                team: FootballMatch(
+        .map((e) => MatchCard(
+                team: Match(
               schedule: e["schedule"],
               team1: e["abbr1"],
               team2: e["abbr2"],

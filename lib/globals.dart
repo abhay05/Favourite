@@ -1,9 +1,10 @@
-import 'package:favourite/widgets/FootballMatchCard.dart';
+import 'package:favourite/widgets/MatchCard.dart';
 import 'package:flutter/material.dart';
 
 class Globals {
- static final GlobalKey<FootballMatchCardState> FootballMatchCardglobalKey=GlobalKey<FootballMatchCardState>();
-  static GlobalKey<FootballMatchCardState> get() {
+  static final GlobalKey<MatchCardState> FootballMatchCardglobalKey =
+      GlobalKey<MatchCardState>();
+  static GlobalKey<MatchCardState> get() {
     return FootballMatchCardglobalKey;
   }
 }
