@@ -3,8 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import '../models/FootballMatch.dart';
-import '../widgets/FootballMatchCard.dart';
+import '../models/Match.dart';
+import '../widgets/MatchCard.dart';
 import 'package:intl/intl.dart';
 import '../readWriteLocal.dart';
 
@@ -93,7 +93,7 @@ class FootballMatchProvider with ChangeNotifier {
       } else {
         winner = competitorAbbr2;
       }
-      scheduled_matches.add(FootballMatch(
+      scheduled_matches.add(Match(
           team1: competitorAbbr1,
           team2: competitorAbbr2,
           winner: winner,
@@ -104,12 +104,12 @@ class FootballMatchProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  List<FootballMatchCard> getTeamsCards() {
+  List<MatchCard> getTeamsCards() {
     // return [...matches];
     matches.sort((a, b) => a.schedule.compareTo(b.schedule));
-    List<FootballMatchCard> arr = [];
+    List<MatchCard> arr = [];
     matches.forEach((ele) {
-      arr.add(FootballMatchCard(team: ele));
+      arr.add(MatchCard(team: ele));
     });
     //  arr.sort((a,b)=>a.schedule.compareTo(b.schedule)
     return arr;

@@ -1,6 +1,7 @@
+import 'package:favourite/providers/BasketballMatchProvider.dart';
 import 'package:favourite/providers/FootballMatchProvider.dart';
 import 'package:favourite/widgets/CardsList.dart';
-import 'package:favourite/widgets/FootballMatchCard.dart';
+import 'package:favourite/widgets/MatchCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,8 @@ class FavouriteApp extends StatefulWidget {
 class _FavouriteAppState extends State<FavouriteApp> {
   ScrollController _scrollController;
   Future<List> matchesList;
-  Future<List> cricketMatchesList;
+  Future<void> cricketMatchesList;
+  Future<void> basketballMatchesList;
 
   void initState() {
     var matchesProvider =
@@ -25,12 +27,15 @@ class _FavouriteAppState extends State<FavouriteApp> {
     matchesList = matchesProvider.fetchMatches();
     var cricketMatchesProvider =
         Provider.of<CricketMatchesProvider>(context, listen: false);
-    var cricketMatchesList = cricketMatchesProvider.fetchMatches();
+    cricketMatchesList = cricketMatchesProvider.fetchMatches();
+    var basketballMatchProvider =
+        Provider.of<BasketballMatchProvider>(context, listen: false);
+    basketballMatchesList = basketballMatchProvider.fetchMatches();
     super.initState();
   }
 
   void postFrameCallback() {
-    GlobalKey<FootballMatchCardState> FootballMatchGlobalKey = Globals.get();
+    //  GlobalKey<FootballMatchCardState> FootballMatchGlobalKey = Globals.get();
     // var widWidth=FootballMatchGlobalKey.currentContext.size.width;
     //print("Widget width "+widWidth.toString());
     //_scrollController.jumpTo(1); -> this won't work as we are using single
@@ -47,8 +52,11 @@ class _FavouriteAppState extends State<FavouriteApp> {
     // });
     var matchesProvider = Provider.of<FootballMatchProvider>(context);
     var cricketMatchesProvider = Provider.of<CricketMatchesProvider>(context);
+    var basketballMatchProvider =
+        Provider.of<BasketballMatchProvider>(context, listen: false);
     var teams = matchesProvider.getTeamsCards();
     var cricketMatches = cricketMatchesProvider.getTeamsCards;
+    // var basketBallMatches=
     return Scaffold(
       appBar: AppBar(
         //title: Text("Favourite"),
@@ -96,6 +104,10 @@ class _FavouriteAppState extends State<FavouriteApp> {
               height: 30,
             ),
             CardsList(cricketMatchesList, _scrollController, "cricket"),
+            SizedBox(
+              height: 30,
+            ),
+            CardsList(basketballMatchesList, _scrollController, "basketball"),
             // FutureBuilder(
             //   future: cricketMatchesList,
             //   builder: (context, snapshot) {
