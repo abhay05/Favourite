@@ -8,26 +8,26 @@ import '../widgets/MatchCard.dart';
 class BasketballMatchProvider with ChangeNotifier {
   var matchesList = [
     {
-      "team1": "lal",
-      "team2": "lac",
+      "team1": "LAL",
+      "team2": "LAC",
       "schedule": 1742331881000, // in milliseconds
       "game": "basketball",
     },
     {
-      "team1": "gsw",
-      "team2": "hou",
+      "team1": "GSW",
+      "team2": "HOU",
       "schedule": 1742331881000, // in milliseconds
       "game": "basketball",
     },
     {
-      "team1": "ind",
-      "team2": "lac",
+      "team1": "IND",
+      "team2": "LAC",
       "schedule": 1742331881000, // in milliseconds
       "game": "basketball",
     },
     {
-      "team1": "ind",
-      "team2": "gsw",
+      "team1": "IND",
+      "team2": "GSW",
       "schedule": 1742331881000, // in milliseconds
       "game": "basketball",
     }

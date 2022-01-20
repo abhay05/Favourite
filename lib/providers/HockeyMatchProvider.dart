@@ -3,32 +3,32 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../models/ProviderClass.dart';
 
-class HockeyMatchProvider extends ProviderClass {
+class HockeyMatchProvider with ChangeNotifier, ProviderClass {
   var matchesList = [
     {
-      "team1": "lal",
-      "team2": "lac",
+      "team1": "TOR",
+      "team2": "WPG",
       "schedule": 1742331881000, // in milliseconds
-      "game": "basketball",
+      "game": "hockey",
     },
     {
-      "team1": "gsw",
-      "team2": "hou",
+      "team1": "WSH",
+      "team2": "VAN",
       "schedule": 1742331881000, // in milliseconds
-      "game": "basketball",
+      "game": "hockey",
     },
     {
-      "team1": "ind",
-      "team2": "lac",
+      "team1": "ANA",
+      "team2": "BOS",
       "schedule": 1742331881000, // in milliseconds
-      "game": "basketball",
+      "game": "hockey",
     },
     {
-      "team1": "ind",
-      "team2": "gsw",
+      "team1": "WSH",
+      "team2": "VAN",
       "schedule": 1742331881000, // in milliseconds
-      "game": "basketball",
+      "game": "hockey",
     }
   ];
-  HockeyMatchProvider(this.matchesList) : super(matchesList: matchesList);
+  //HockeyMatchProvider(this.matchesList) : super(matchesList: matchesList);
 }

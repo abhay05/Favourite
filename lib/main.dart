@@ -1,6 +1,7 @@
 import 'package:favourite/providers/BasketballMatchProvider.dart';
 import 'package:favourite/providers/CricketMatchesProvider.dart';
 import 'package:favourite/providers/FootballMatchProvider.dart';
+import './providers/HockeyMatchProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import './favouriteApp.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
           }),
           ChangeNotifierProvider(
             create: (BuildContext ctx) => BasketballMatchProvider(),
+          ),
+          ChangeNotifierProvider(
+            create: (BuildContext ctx) => HockeyMatchProvider(),
           ),
         ],
         // red -> 0xd60606

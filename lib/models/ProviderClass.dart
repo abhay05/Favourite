@@ -3,9 +3,8 @@ import '../widgets/MatchCard.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
-class ProviderClass with ChangeNotifier {
+class ProviderClass {
   var matchesList = [];
-  ProviderClass({this.matchesList});
   Future<void> fetchMatches() async {}
 
   List<MatchCard> get getTeamsCards {

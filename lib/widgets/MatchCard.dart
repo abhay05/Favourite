@@ -25,7 +25,9 @@ class MatchCardState extends State<MatchCard> {
     print(widget.team.game);
     print(widget.team.team1);
     var ret = imageUri;
-    if (widget.team.game == "cricket" || widget.team.game == "basketball") {
+    if (widget.team.game == "cricket" ||
+        widget.team.game == "basketball" ||
+        widget.team.game == "hockey") {
       print("CRICKET");
       return ClipRRect(
         child: Image(
@@ -67,6 +69,7 @@ class MatchCardState extends State<MatchCard> {
                 widget.team.team1, widget.team.team2, widget.team.schedule)));
       },
       child: Card(
+        color: Color(0xffF5F5F5),
         //color: Colors.red,
 
         elevation: 0,
@@ -78,7 +81,7 @@ class MatchCardState extends State<MatchCard> {
           ),
         ),
         child: Container(
-          height: mediaQuery.size.height / 6,
+          height: mediaQuery.size.height / 6.8,
           width: (mediaQuery.size.width - 20) / 3,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(
@@ -150,20 +153,14 @@ class MatchCardState extends State<MatchCard> {
                       children: [
                         Text(
                           "${widget.team.team1} - ${widget.team.team2}",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'OpenSans',
-                          ),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Text(
                           "${DateFormat.yMMMEd().format(DateTime.fromMillisecondsSinceEpoch(widget.team.schedule))}",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'OpenSans',
-                          ),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],
                     ),
