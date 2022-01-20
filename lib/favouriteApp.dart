@@ -8,6 +8,9 @@ import 'package:provider/provider.dart';
 import './globals.dart';
 import './Theme.dart';
 import './providers/CricketMatchesProvider.dart';
+import './providers/HockeyMatchProvider.dart';
+import '../Theme.dart';
+import './widgets/LeagueName.dart';
 
 class FavouriteApp extends StatefulWidget {
   @override
@@ -19,6 +22,7 @@ class _FavouriteAppState extends State<FavouriteApp> {
   Future<List> matchesList;
   Future<void> cricketMatchesList;
   Future<void> basketballMatchesList;
+  Future<void> hockeyMatchesList;
 
   void initState() {
     var matchesProvider =
@@ -31,6 +35,9 @@ class _FavouriteAppState extends State<FavouriteApp> {
     var basketballMatchProvider =
         Provider.of<BasketballMatchProvider>(context, listen: false);
     basketballMatchesList = basketballMatchProvider.fetchMatches();
+    var hockeyMatchProvider =
+        Provider.of<HockeyMatchProvider>(context, listen: false);
+    hockeyMatchesList = hockeyMatchProvider.fetchMatches();
     super.initState();
   }
 
@@ -56,58 +63,80 @@ class _FavouriteAppState extends State<FavouriteApp> {
         Provider.of<BasketballMatchProvider>(context, listen: false);
     var teams = matchesProvider.getTeamsCards();
     var cricketMatches = cricketMatchesProvider.getTeamsCards;
+
     // var basketBallMatches=
     return Scaffold(
-      appBar: AppBar(
-        //title: Text("Favourite"),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-              onPressed: () => {},
-              icon: Icon(
-                Icons.star,
-                size: 30,
-                color: MapTheme.miscellaneousIcons["favouriteIconTheme"],
-              )),
-          // FlatButton(
-          //   onPressed: () {},
-          //   child: Text("Press to add Favourites"),
-          // ),
-        ],
+      backgroundColor: Color(0xffF5F5F5), // Color(0xffF5FFFA),
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(100),
+        child:
+            //AppBar(
+            //   //title: Text("Favourite"),
+            //   backgroundColor: Colors.white,
+            //   elevation: 0,
+            //   title:
+            Container(
+          //height: 90,
+          color: Color(
+              0xffF5F5F5), // Color(0xffF5FFFA), // try this -> #F5F5F5 (grey color)
+          padding: EdgeInsets.only(
+            top: 30,
+            left: 10,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "Track your \nFavourite Sports",
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ),
+        ),
+        // actions: [
+        //   IconButton(
+        //       onPressed: () => {},
+        //       icon: Icon(
+        //         Icons.star,
+        //         size: 30,
+        //         color: MapTheme.miscellaneousIcons["favouriteIconTheme"],
+        //       )),
+        //   // FlatButton(
+        //   //   onPressed: () {},
+        //   //   child: Text("Press to add Favourites"),
+        //   // ),
+        // ],
+        //),
       ),
       // backgroundColor: Colors.white, //Theme.of(context).white,
       body: SingleChildScrollView(
           child: Column(children: [
         Column(
           children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(
-                left: 5,
-                top: 10,
-              ),
-              child: Text(
-                "Premier League",
-                style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                  decorationThickness: 22,
-                  decorationStyle: TextDecorationStyle.solid,
-                ),
-              ),
-            ),
+            LeagueName("Premier League"),
 
             CardsList(matchesList, _scrollController, "football"),
             SizedBox(
               height: 30,
             ),
+            LeagueName("Cricket"),
             CardsList(cricketMatchesList, _scrollController, "cricket"),
             SizedBox(
               height: 30,
             ),
+            LeagueName("NBA"),
             CardsList(basketballMatchesList, _scrollController, "basketball"),
+            SizedBox(
+              height: 30,
+            ),
+            LeagueName("NHL"),
+            CardsList(hockeyMatchesList, _scrollController, "hockey"),
             // FutureBuilder(
             //   future: cricketMatchesList,
             //   builder: (context, snapshot) {
