@@ -77,8 +77,15 @@ class _FavouriteAppState extends State<FavouriteApp> {
             //   title:
             Container(
           //height: 90,
-          color: Color(
-              0xffF5F5F5), // Color(0xffF5FFFA), // try this -> #F5F5F5 (grey color)
+          // color: , // Color(0xffF5FFFA), // try this -> #F5F5F5 (grey color)
+          // really nice grey color -> 0xffF5F5F5
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Color(0xffF5F5F5), Color(0xffa3a3a3)]),
+          ),
+
           padding: EdgeInsets.only(
             top: 30,
             left: 10,
@@ -120,22 +127,33 @@ class _FavouriteAppState extends State<FavouriteApp> {
         Column(
           children: [
             LeagueName("Premier League"),
-
+            SizedBox(
+              height: 10,
+            ),
             CardsList(matchesList, _scrollController, "football"),
             SizedBox(
               height: 30,
             ),
             LeagueName("Cricket"),
+            SizedBox(
+              height: 10,
+            ),
             CardsList(cricketMatchesList, _scrollController, "cricket"),
             SizedBox(
               height: 30,
             ),
             LeagueName("NBA"),
+            SizedBox(
+              height: 10,
+            ),
             CardsList(basketballMatchesList, _scrollController, "basketball"),
             SizedBox(
               height: 30,
             ),
             LeagueName("NHL"),
+            SizedBox(
+              height: 10,
+            ),
             CardsList(hockeyMatchesList, _scrollController, "hockey"),
             // FutureBuilder(
             //   future: cricketMatchesList,

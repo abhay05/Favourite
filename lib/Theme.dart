@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+class CardTextTheme {
+  static TextTheme cardTextTheme = TextTheme(
+    bodyText2: GoogleFonts.openSans(
+      color: Colors.white,
+      fontSize: 13,
+      fontWeight: FontWeight
+          .bold, //FontWeight.w600, // affects the size of the fonts too
+    ),
+  );
+}
+
 class MapTheme {
   static TextTheme lightTextTheme = TextTheme(
       bodyText1: GoogleFonts.openSans(
