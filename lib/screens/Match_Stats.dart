@@ -2,6 +2,8 @@ import 'package:favourite/providers/FootballMatchStatsProvider.dart';
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
 import '../models/FootballMatchStats.dart';
+import '../widgets/LineUp.dart';
+import '../widgets/LiveComments.dart';
 
 class MatchStats extends StatefulWidget {
   static const route = "/match_stats";
@@ -15,6 +17,7 @@ class MatchStats extends StatefulWidget {
 }
 
 class _MatchStatsState extends State<MatchStats> {
+  int currTab = 2;
   Future<void> _loadStats(BuildContext ctx, String team1, String team2) async {
     await Provider.of<MatchStatsProvider>(ctx, listen: false)
         .fetchStats(team1, team2, widget.startTime);
@@ -123,79 +126,31 @@ class _MatchStatsState extends State<MatchStats> {
               builder: (ctx, provider, child) {
                 matchStats = provider.getStats();
                 //  var statRows=getStats(matchStats.home_team_stats, matchStats.away_team_stats);
-                widget = Column(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).padding.top +
-                              height * 0.05),
-                      height: height * 0.2 - 19,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: height * 0.1,
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                      child: Column(
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            top: 10, left: 10, right: 10),
-                                        child: Text(
-                                          matchStats.home_team_goals == null
-                                              ? "0"
-                                              : matchStats.home_team_goals
-                                                  .toString(),
-                                          style: TextStyle(
-                                            fontSize: 30,
-                                            //color: matchStats.home_team==matchStats.winner?Colors.green:Colors.black
-                                          ),
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.only(
-                                            top: 10, left: 10, right: 10),
-                                        color: matchStats.home_team ==
-                                                matchStats.winner
-                                            ? Colors.green
-                                            : Colors.white,
-                                        child: Text(
-                                          matchStats.home_team == null
-                                              ? "Def"
-                                              : matchStats.home_team,
-                                          style: TextStyle(
-                                            fontSize: 10,
-                                            //color: matchStats.home_team==matchStats.winner?Colors.green:Colors.black
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Text(
-                                      " - ",
-                                      style: TextStyle(
-                                        fontSize: 30,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Center(
-                                    child: Column(
+                widget = SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(
+                            top: MediaQuery.of(context).padding.top +
+                                height * 0.05),
+                        height: height * 0.2 - 19,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: height * 0.1,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Center(
+                                        child: Column(
                                       children: [
                                         Container(
-                                          // color: Colors.pink,
                                           padding: EdgeInsets.only(
                                               top: 10, left: 10, right: 10),
                                           child: Text(
-                                            matchStats.away_team_goals == null
+                                            matchStats.home_team_goals == null
                                                 ? "0"
-                                                : matchStats.away_team_goals
+                                                : matchStats.home_team_goals
                                                     .toString(),
                                             style: TextStyle(
                                               fontSize: 30,
@@ -204,79 +159,151 @@ class _MatchStatsState extends State<MatchStats> {
                                           ),
                                         ),
                                         Container(
-                                          // color:Colors.red,
                                           padding: EdgeInsets.only(
                                               top: 10, left: 10, right: 10),
-                                          color: matchStats.away_team ==
+                                          color: matchStats.home_team ==
                                                   matchStats.winner
-                                              ? Colors.blue
+                                              ? Colors.green
                                               : Colors.white,
                                           child: Text(
-                                            matchStats.away_team == null
+                                            matchStats.home_team == null
                                                 ? "Def"
-                                                : matchStats.away_team,
+                                                : matchStats.home_team,
                                             style: TextStyle(
                                               fontSize: 10,
-                                              //  backgroundColor: Colors.green,
-                                              // color: matchStats.home_team==matchStats.winner?Colors.blue:Colors.black
+                                              //color: matchStats.home_team==matchStats.winner?Colors.green:Colors.black
                                             ),
                                           ),
                                         ),
                                       ],
+                                    )),
+                                  ),
+                                  Expanded(
+                                    child: Center(
+                                      child: Text(
+                                        " - ",
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                        ),
+                                      ),
                                     ),
                                   ),
+                                  Expanded(
+                                    child: Center(
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            // color: Colors.pink,
+                                            padding: EdgeInsets.only(
+                                                top: 10, left: 10, right: 10),
+                                            child: Text(
+                                              matchStats.away_team_goals == null
+                                                  ? "0"
+                                                  : matchStats.away_team_goals
+                                                      .toString(),
+                                              style: TextStyle(
+                                                fontSize: 30,
+                                                //color: matchStats.home_team==matchStats.winner?Colors.green:Colors.black
+                                              ),
+                                            ),
+                                          ),
+                                          Container(
+                                            // color:Colors.red,
+                                            padding: EdgeInsets.only(
+                                                top: 10, left: 10, right: 10),
+                                            color: matchStats.away_team ==
+                                                    matchStats.winner
+                                                ? Colors.blue
+                                                : Colors.white,
+                                            child: Text(
+                                              matchStats.away_team == null
+                                                  ? "Def"
+                                                  : matchStats.away_team,
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                //  backgroundColor: Colors.green,
+                                                // color: matchStats.home_team==matchStats.winner?Colors.blue:Colors.black
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              // color: Colors.black,
+                              padding: EdgeInsets.only(top: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextButton(
+                                      // style: ,
+                                      onPressed: () {
+                                        setState(() {
+                                          currTab = 1;
+                                        });
+                                        print(currTab);
+                                      },
+                                      child: Text("Lineup")),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          currTab = 2;
+                                        });
+                                        print(currTab);
+                                      },
+                                      child: Text("Stats")),
+                                  TextButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          currTab = 3;
+                                        });
+                                        print(currTab);
+                                      },
+                                      child: Text("Comments")),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      currTab == 2
+                          ? SingleChildScrollView(
+                              child: Container(
+                                width: width * 0.9,
+                                height: height * 0.7,
+                                margin: EdgeInsets.only(bottom: 20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(30),
+                                  //border: Border.all(color: Colors.grey[600],width: 2),
+                                  // color:Colors.grey[400],
+                                  boxShadow: [
+                                    BoxShadow(color: Colors.grey[400]),
+                                    BoxShadow(
+                                      color: Colors.grey[300],
+                                      spreadRadius: -6.0,
+                                      blurRadius: 10,
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            // color: Colors.black,
-                            padding: EdgeInsets.only(top: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                TextButton(
-                                    // style: ,
-                                    onPressed: () {},
-                                    child: Text("Lineup")),
-                                TextButton(
-                                    onPressed: () {}, child: Text("Stats")),
-                                TextButton(
-                                    onPressed: () {}, child: Text("Comments")),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SingleChildScrollView(
-                      child: Container(
-                        width: width * 0.9,
-                        height: height * 0.7,
-                        margin: EdgeInsets.only(bottom: 20),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          //border: Border.all(color: Colors.grey[600],width: 2),
-                          // color:Colors.grey[400],
-                          boxShadow: [
-                            BoxShadow(color: Colors.grey[400]),
-                            BoxShadow(
-                              color: Colors.grey[300],
-                              spreadRadius: -6.0,
-                              blurRadius: 10,
-                            ),
-                          ],
-                        ),
-                        //color: Colors.grey[400],
-                        child: Column(
-                          children: [
-                            ...getStats(matchStats.home_team_stats,
-                                matchStats.away_team_stats),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+                                //color: Colors.grey[400],
+                                child: Column(
+                                  children: [
+                                    ...getStats(matchStats.home_team_stats,
+                                        matchStats.away_team_stats),
+                                  ],
+                                ),
+                              ),
+                            )
+                          : currTab == 1
+                              ? LineUp(height, width)
+                              : LiveComments(height, width),
+                    ],
+                  ),
                 );
                 return widget;
               },
