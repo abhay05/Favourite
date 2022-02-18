@@ -1,31 +1,33 @@
 import 'package:flutter/material.dart';
-import '../models/FootballMatch.dart';
+import '../models/Match.dart';
 import 'package:intl/intl.dart';
 import '../screens/Match_Stats.dart';
 import '../globals.dart';
 import 'package:flutter_svg/avd.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class FootballMatchCard extends StatefulWidget {
-  final FootballMatch team;
-  FootballMatchCard({Key key, this.team}) : super(key: key);
-  FootballMatch get getTeam {
+class MatchCard extends StatefulWidget {
+  final Match team;
+  MatchCard({Key key, this.team}) : super(key: key);
+  Match get getTeam {
     return this.team;
   }
 
   @override
-  FootballMatchCardState createState() => FootballMatchCardState();
+  MatchCardState createState() => MatchCardState();
 }
 
-class FootballMatchCardState extends State<FootballMatchCard> {
-  // GlobalKey<FootballMatchCardState> globalKey = Globals.get();
+class MatchCardState extends State<MatchCard> {
+  // GlobalKey<MatchCardState> globalKey = Globals.get();
 
   Widget tryCatch(String imageUri) {
     print("inside try catch");
     print(widget.team.game);
     print(widget.team.team1);
     var ret = imageUri;
-    if (widget.team.game == "cricket") {
+    if (widget.team.game == "cricket" ||
+        widget.team.game == "basketball" ||
+        widget.team.game == "hockey") {
       print("CRICKET");
       return ClipRRect(
         child: Image(
@@ -67,6 +69,7 @@ class FootballMatchCardState extends State<FootballMatchCard> {
                 widget.team.team1, widget.team.team2, widget.team.schedule)));
       },
       child: Card(
+        color: Color(0xffF5F5F5),
         //color: Colors.red,
 
         elevation: 0,
@@ -78,7 +81,7 @@ class FootballMatchCardState extends State<FootballMatchCard> {
           ),
         ),
         child: Container(
-          height: mediaQuery.size.height / 6,
+          height: mediaQuery.size.height / 6.8,
           width: (mediaQuery.size.width - 20) / 3,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(
@@ -150,20 +153,14 @@ class FootballMatchCardState extends State<FootballMatchCard> {
                       children: [
                         Text(
                           "${widget.team.team1} - ${widget.team.team2}",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'OpenSans',
-                          ),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                         SizedBox(
                           height: 5,
                         ),
                         Text(
                           "${DateFormat.yMMMEd().format(DateTime.fromMillisecondsSinceEpoch(widget.team.schedule))}",
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: 'OpenSans',
-                          ),
+                          style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ],
                     ),
